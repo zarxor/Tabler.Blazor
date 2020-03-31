@@ -1,0 +1,25 @@
+﻿<h2>@Title</h2>
+@Description
+<div class="example no_toc_section example-bg">
+    <div class="example-content">
+        <div class="example-column example-column-1">
+            @Example
+        </div>
+    </div>
+</div>
+<div class="example-code">
+    <figure class="highlight">
+        <pre><code class="language-html" data-lang="html">@Example.ToString()</code></pre>
+    </figure>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public RenderFragment Description { get; set; }
+
+    [Parameter]
+    public RenderFragment Example { get; set; }
+}
