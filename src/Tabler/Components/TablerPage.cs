@@ -2,7 +2,7 @@
 
 namespace Tabler.Components
 {
-    public class TablerCardBody : TablerBaseComponent
+    public class TablerPage : TablerBaseComponent
     {
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
@@ -10,9 +10,9 @@ namespace Tabler.Components
 
             var seq = 0;
             var cardClassBuilder = new ClassBuilder(Class)
-                .Add("card-body")
-                .Add(TextColor.GetColorClass("text"))
-                .Add(BackgroundColor.GetColorClass("bg"));
+                .Add("page")
+                .Add(BackgroundColor.GetColorClass("bg"))
+                .Add(TextColor.GetColorClass("text"));
 
             builder.OpenElement(seq++, ElementType);
             builder.AddAttribute(seq++, "class", cardClassBuilder.ToString());

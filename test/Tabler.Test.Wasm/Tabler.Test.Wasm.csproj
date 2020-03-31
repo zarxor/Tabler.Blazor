@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
     <RootNamespace>Tabler.Test</RootNamespace>
+    <UserSecretsId>1a575f82-b0e6-4eea-bc1c-2ea114ce81da</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

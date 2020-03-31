@@ -8,7 +8,7 @@ namespace Tabler
     {
         public List<string> ClassNames = new List<string>();
 
-        public ClassBuilder(string classNames)
+        public ClassBuilder(string classNames = null)
         {
             if (!string.IsNullOrWhiteSpace(classNames))
                 ClassNames = classNames
@@ -30,6 +30,15 @@ namespace Tabler
             return isOk ? Add(className) : this;
         }
 
+        public ClassBuilder AddCompare<T>(T compare, Dictionary<T, string> with)
+        {
+            foreach (var kvp in with)
+            {
+                AddCompare(kvp.Value, compare, kvp.Key);
+            }
+
+            return this;
+        }
         public ClassBuilder AddCompare<T>(string className, T compare, T with)
         {
             return AddIf(className, compare.Equals(with));

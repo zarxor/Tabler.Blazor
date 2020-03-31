@@ -1,8 +1,8 @@
 ﻿<h2>@Title</h2>
 @Description
-<div class="example no_toc_section example-bg">
+<div class="example no_toc_section example-bg @(Centered ? "example-centered" : "") @Class">
     <div class="example-content">
-        <div class="example-column example-column-1">
+        <div class="example-column @(Columns > 0 ? $"example-column-{Columns}" : "")">
             @Example
         </div>
     </div>
@@ -22,4 +22,14 @@
 
     [Parameter]
     public RenderFragment Example { get; set; }
+
+    [Parameter]
+    public int Columns { get; set; } = 0;
+
+    [Parameter]
+    public bool Centered { get; set; }
+
+    [Parameter]
+    public string Class { get; set; }
+
 }

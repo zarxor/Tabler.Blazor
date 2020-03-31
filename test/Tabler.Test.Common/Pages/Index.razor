@@ -1,0 +1,101 @@
+﻿@page "/"
+
+<TablerPageHeader>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <TablerPagePretitle>
+                Overview
+            </TablerPagePretitle>
+            <TablerPageTitle>
+                Dashboard
+            </TablerPageTitle>
+        </div>
+        <!-- Page title actions -->
+        <div class="col-auto ml-auto d-print-none">
+            <span class="d-none d-sm-inline">
+                <TablerButton Href="javascript:void(0)" BackgroundColor="TablerColor.Secondary">New view</TablerButton>
+            </span>
+            <TablerButton Href="javascript:void(0)" BackgroundColor="TablerColor.Primary" Class="ml-3 d-none d-sm-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Create new report
+            </TablerButton>
+            <!--
+    <a href="#" class="btn btn-primary ml-3 d-none d-sm-inline-block" data-toggle="modal" data-target="#modal-report">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        Create new report
+    </a>
+    <a href="#" class="btn btn-primary ml-3 d-sm-none btn-icon" data-toggle="modal" data-target="#modal-report" aria-label="Create new report">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </a>
+    -->
+        </div>
+    </div>
+</TablerPageHeader>
+
+<TablerRow Cards="true">
+    <TablerRowCol Sm="6" Lg="3">
+        <TablerCard>
+            <TablerCardBody>
+                <div class="d-flex align-items-center">
+                    <div class="subheader">Sales</div>
+                    <div class="ml-auto lh-1">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle text-muted" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Last 7 days
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item active" href="#">Last 7 days</a>
+                                <a class="dropdown-item" href="#">Last 30 days</a>
+                                <a class="dropdown-item" href="#">Last 3 months</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h1 mb-3">75%</div>
+                <div class="d-flex mb-2">
+                    <div>Conversion rate</div>
+                    <div class="ml-auto">
+                        <span class="text-green d-inline-flex align-items-center lh-1">
+                            7% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon ml-1"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="progress progress-sm">
+                    <div class="progress-bar bg-blue" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">75% Complete</span>
+                    </div>
+                </div>
+            </TablerCardBody>
+        </TablerCard>
+    </TablerRowCol>
+    <TablerRowCol Sm="6" Lg="3">
+        <TablerCard>
+            <TablerCardBody>
+                <div class="d-flex align-items-center">
+                    <div class="subheader">Revenue</div>
+                    <div class="ml-auto lh-1">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle text-muted" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Last 7 days
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item active" href="#">Last 7 days</a>
+                                <a class="dropdown-item" href="#">Last 30 days</a>
+                                <a class="dropdown-item" href="#">Last 3 months</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline">
+                    <div class="h1 mb-0 mr-2">$4,300</div>
+                    <div class="mr-auto">
+                        <span class="text-green d-inline-flex align-items-center lh-1">
+                            8% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon ml-1"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                        </span>
+                    </div>
+                </div>
+            </TablerCardBody>
+            <div id="chart-revenue-bg"  class="chart-sm" ></div>
+        </TablerCard>
+    </TablerRowCol>
+</TablerRow>

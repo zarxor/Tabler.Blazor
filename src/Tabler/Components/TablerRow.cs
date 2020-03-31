@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Components.Rendering;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Tabler.Components
 {
-    public class TablerCardBody : TablerBaseComponent
+    public class TablerRow : TablerBaseComponent
     {
+        [Parameter] public bool Cards { get; set; }
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             base.BuildRenderTree(builder);
 
             var seq = 0;
             var cardClassBuilder = new ClassBuilder(Class)
-                .Add("card-body")
+                .Add("row")
+                .Add(BackgroundColor.GetColorClass("bg"))
                 .Add(TextColor.GetColorClass("text"))
-                .Add(BackgroundColor.GetColorClass("bg"));
+                .AddIf("row-cards", Cards);
 
             builder.OpenElement(seq++, ElementType);
             builder.AddAttribute(seq++, "class", cardClassBuilder.ToString());

@@ -1,4 +1,5 @@
-<Router AppAssembly="@typeof(Program).Assembly">
+@using Tabler.Test.Common.Shared
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="new [] { typeof(MainLayout).Assembly }">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>

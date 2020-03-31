@@ -32,7 +32,7 @@ namespace Tabler
 
     public static class TablerColorsExtensions
     {
-        public static string GetColorClass(this TablerColor colors, string type, bool outlined = false)
+        public static string GetColorClass(this TablerColor colors, string type, bool outlined = false, string suffix = "")
         {
             var colorClass = $"{type}";
             if (outlined)
@@ -44,11 +44,16 @@ namespace Tabler
                     colorClass = "";
                     break;
                 case TablerColor.GrayDark:
-                    colorClass += $"{type}-gray-dark";
+                    colorClass += $"-gray-dark";
                     break;
                 default:
-                    colorClass += $"{type}-{Enum.GetName(typeof(TablerColor), colors)?.ToLower()}";
+                    colorClass += $"-{Enum.GetName(typeof(TablerColor), colors)?.ToLower()}";
                     break;
+            }
+
+            if (!string.IsNullOrWhiteSpace(suffix) && !string.IsNullOrWhiteSpace(colorClass))
+            {
+                colorClass += $"-{suffix}";
             }
 
             return colorClass;
