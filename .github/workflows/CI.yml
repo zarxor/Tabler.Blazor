@@ -14,26 +14,15 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        dotnet: [ '3.0.100', '3.1.100' ]
+    name: Dotnet ${{ matrix.dotnet }} sample
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    
-  deploy:
-    #needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v1
-        
-      - uses: actions/checkout@v1
-      - name: Pack package
-        run: dotnet pack src/Tabler/Tabler.csproj --configuration Release
-      
-      - name: Push package
-        run: |
-          nuget setapikey ${{ secrets.NugetApiKey }}
-          nuget push **\*.nupkg -source "GPR"
+      - uses: actions/checkout@master
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - run: dotnet build src/Tabler/Tabler.csproj
