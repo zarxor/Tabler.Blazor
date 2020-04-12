@@ -4,6 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
     <LangVersion>latest</LangVersion>
+    <PackageId>Tabler.Blazor</PackageId>
+    <Authors>Johan Boström</Authors>
+    <Version>0.0.1</Version>
+    <Product>Tabler.Blazor</Product>
+    <PackageProjectUrl>https://github.com/zarxor/Tabler.Blazor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zarxor/Tabler.Blazor</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
