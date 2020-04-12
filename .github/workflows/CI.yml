@@ -35,5 +35,6 @@ jobs:
       
       - name: Push package
         run: |
-          nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/Tabler.Blazor/index.json -Username ${{ secrets.NugetUser }} -Password ${{ secrets.NugetApiKey }}
+          nuget setapikey ${{ secrets.NugetApiKey }}
+          nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/Tabler.Blazor/index.json
           nuget push **\*.nupkg -source "GPR"
