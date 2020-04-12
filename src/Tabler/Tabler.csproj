@@ -14,6 +14,7 @@
     <Description>Blazor wrapper for Tabler</Description>
     <Copyright />
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>tabler-logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,10 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\tabler-logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
