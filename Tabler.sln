@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tabler", "src\Tabler\Tabler
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tabler.Test.Wasm", "test\Tabler.Test.Wasm\Tabler.Test.Wasm.csproj", "{73A4C22B-9B55-4AFA-BE5D-DA0409509F32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabler.Test.ServerApp", "test\Tabler.Test.ServerApp\Tabler.Test.ServerApp.csproj", "{FE707278-11DB-46A4-9ACB-1167CC783025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tabler.Test.ServerApp", "test\Tabler.Test.ServerApp\Tabler.Test.ServerApp.csproj", "{FE707278-11DB-46A4-9ACB-1167CC783025}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A0BF0ABF-79CC-4728-A8DB-F3E3C569151A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tabler.Test.Common", "test\Tabler.Test.Common\Tabler.Test.Common.csproj", "{7A151F8D-B090-4314-AB55-AB4210BF3FF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tabler.Test.Common", "test\Tabler.Test.Common\Tabler.Test.Common.csproj", "{7A151F8D-B090-4314-AB55-AB4210BF3FF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,31 +30,34 @@ namespace Tabler
         Dark
     }
 
+    public enum TablerColorType
+    {
+        Default,
+        Outlined,
+        Ghost
+    }
+
     public static class TablerColorsExtensions
     {
-        public static string GetColorClass(this TablerColor colors, string type, bool outlined = false, string suffix = "")
+        public static string GetColorClass(this TablerColor colors, string type,
+            TablerColorType colorType = TablerColorType.Default, string suffix = "")
         {
             var colorClass = $"{type}";
-            if (outlined)
-                colorClass += "-outlined";
-
-            switch (colors)
+            colorClass += colorType switch
             {
-                case TablerColor.Default:
-                    colorClass = "";
-                    break;
-                case TablerColor.GrayDark:
-                    colorClass += $"-gray-dark";
-                    break;
-                default:
-                    colorClass += $"-{Enum.GetName(typeof(TablerColor), colors)?.ToLower()}";
-                    break;
-            }
+                TablerColorType.Default => "",
+                _ => $"-{Enum.GetName(typeof(TablerColorType), colorType)?.ToLower()}"
+            };
+
+            colorClass = colors switch
+            {
+                TablerColor.Default => "",
+                TablerColor.GrayDark => $"{colorClass}-gray-dark",
+                _ => $"{colorClass}-{Enum.GetName(typeof(TablerColor), colors)?.ToLower()}"
+            };
 
             if (!string.IsNullOrWhiteSpace(suffix) && !string.IsNullOrWhiteSpace(colorClass))
-            {
                 colorClass += $"-{suffix}";
-            }
 
             return colorClass;
         }

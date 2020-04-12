@@ -10,17 +10,22 @@ namespace Tabler
 
         public ClassBuilder(string classNames = null)
         {
-            if (!string.IsNullOrWhiteSpace(classNames))
-                ClassNames = classNames
-                    .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                    .Distinct()
-                    .ToList();
+            Add(classNames);
         }
 
         public ClassBuilder Add(string className)
         {
-            if (!string.IsNullOrWhiteSpace(className) && !ClassNames.Contains(className))
-                ClassNames.Add(className);
+            if (!string.IsNullOrWhiteSpace(className))
+            {
+                var classNames = className
+                    .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                    .Distinct()
+                    .ToList();
+
+                foreach (var name in classNames.Where(name =>
+                    !string.IsNullOrWhiteSpace(name) && !ClassNames.Contains(name)))
+                    ClassNames.Add(name);
+            }
 
             return this;
         }
@@ -32,13 +37,11 @@ namespace Tabler
 
         public ClassBuilder AddCompare<T>(T compare, Dictionary<T, string> with)
         {
-            foreach (var kvp in with)
-            {
-                AddCompare(kvp.Value, compare, kvp.Key);
-            }
+            foreach (var kvp in with) AddCompare(kvp.Value, compare, kvp.Key);
 
             return this;
         }
+
         public ClassBuilder AddCompare<T>(string className, T compare, T with)
         {
             return AddIf(className, compare.Equals(with));
