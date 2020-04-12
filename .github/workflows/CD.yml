@@ -11,9 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     # Authenticates packages to push to GPR
-   - name: publish on version change
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: src/Tabler/Tabler.csproj # Relative to repository root
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          PACKAGE_NAME: Tabler.Blazor
+    - name: publish on version change
+      uses: rohith/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: src/Tabler/Tabler.csproj # Relative to repository root
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        PACKAGE_NAME: Tabler.Blazor
