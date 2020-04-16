@@ -33,7 +33,7 @@ jobs:
       inputs:
         version: '3.1.201'
 
-    - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
+    - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
       displayName: 'dotnet build $(buildDemoProject)'
 
     - task: Npm@1
@@ -42,5 +42,5 @@ jobs:
         command: 'custom'
         customCommand: 'install netlify-cli'
 
-    - script: npx netlify deploy --dir $(buildDemoProjectOutput) --site $(netlify_site_id) --auth $(netlify_api_key)
+    - script: npx netlify deploy --dir $(buildDemoProjectOutput)/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
       displayName: 'netlify deploy'
