@@ -29,9 +29,10 @@ jobs:
   - job: DemoSite
     displayName: 'Build demo site'
     steps:
-    - task: UseDotNet@2
+    - task: UseDotNet@2      
       inputs:
-        version: '3.1.102'
+        version: '3.2.x'
+        includePreviewVersions: true
 
     - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildDemoProject)'
