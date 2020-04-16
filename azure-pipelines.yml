@@ -40,7 +40,7 @@ jobs:
       displayName: 'Install netlify client'
       inputs:
         command: 'custom'
-        customCommand: 'install netlify-cli -g'
+        customCommand: 'install netlify-cli'
 
-    - script: netlify deploy --dir $(buildDemoProjectOutput) --site $(netlify_site_id) --auth $(netlify_api_key)
+    - script: npx netlify deploy --dir $(buildDemoProjectOutput) --site $(netlify_site_id) --auth $(netlify_api_key)
       displayName: 'netlify deploy'
