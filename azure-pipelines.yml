@@ -12,7 +12,27 @@ pool:
 variables:
   buildConfiguration: 'Release'
   buildProject: 'src/Tabler/Tabler.csproj'
+  buildDemoProject: 'test/Tabler.Test.Wasm/Tabler.Test.Wasm.csproj'
+  buildDemoProjectOutput: 'demo-dist'
 
-steps:
-- script: dotnet build $(buildProject) --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildProject)'
+jobs:
+  - job: Tabler
+    displayName: 'Build Tabler for Blazor'
+    steps:
+    - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildProject)'
+
+  - job: DemoSite
+    displayName: 'Build demo site'
+    steps:
+    - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
+      displayName: 'dotnet build $(buildDemoProject)'
+
+    - task: Npm@1
+      displayName: 'Install netlify client'
+      inputs:
+        command: 'custom'
+        customCommand: 'install netlify-cli -g'
+
+    - script: netlify deploy --dir $(buildDemoProjectOutput) --site $(netlify_site_id) --auth $(netlify_api_key)
+      displayName: 'netlify deploy'
