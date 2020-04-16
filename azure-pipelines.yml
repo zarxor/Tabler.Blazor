@@ -33,7 +33,7 @@ jobs:
       inputs:
         version: '3.1.201'
 
-    - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration)
+    - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
       displayName: 'dotnet build $(buildDemoProject)'
 
     - task: Npm@1
