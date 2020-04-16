@@ -19,13 +19,21 @@ jobs:
   - job: Tabler
     displayName: 'Build Tabler for Blazor'
     steps:
+    - task: UseDotNet@2
+      inputs:
+        version: '3.1.201'
+        
     - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildProject)'
 
   - job: DemoSite
     displayName: 'Build demo site'
     steps:
-    - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
+    - task: UseDotNet@2      
+      inputs:
+        version: '3.1.201'
+
+    - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildDemoProject)'
 
     - task: Npm@1
