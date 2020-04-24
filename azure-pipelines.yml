@@ -13,21 +13,23 @@ variables:
   buildConfiguration: 'Release'
   buildProject: 'src/Tabler/Tabler.csproj'
   buildDemoProject: 'test/Tabler.Test.Wasm/Tabler.Test.Wasm.csproj'
-  buildDemoProjectOutput: 'demo-dist'
+  buildDemoProjectOutput: '$(System.ArtifactsDirectory)'
 
 stages:
 - stage: build
   displayName: 'Build'
   jobs:
-  - job: Tabler
+  - job: build_tabler
     displayName: 'Build Tabler for Blazor'
-    steps:
-    - task: UseDotNet@2
-      inputs:
-        version: '3.1.201'
-        
+    steps:        
     - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildProject)'
+
+  - job: publish_tabler
+    displayName: 'Publish Tabler for Blazor'
+    steps:        
+      - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(System.ArtifactsDirectory)
+        displayName: 'dotnet build $(buildDemoProject)'       
 
 - stage: deploy_demo_site
   displayName: 'Deploy demo site'
@@ -37,9 +39,10 @@ stages:
       strategy:
         runOnce:
           preDeploy:
-            steps:
-              - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
-                displayName: 'dotnet build $(buildDemoProject)'                
+            steps:       
+              - download: current
+                artifact: $(System.ArtifactsDirectory)  
+
               - task: Npm@1
                 displayName: 'Install netlify client'
                 inputs:
