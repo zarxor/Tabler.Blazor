@@ -16,7 +16,8 @@ variables:
   buildDemoProjectOutput: 'demo-dist'
 
 stages:
-- stage: Build
+- stage: build
+  displayName: 'Build'
   jobs:
   - job: Tabler
     displayName: 'Build Tabler for Blazor'
@@ -28,7 +29,8 @@ stages:
     - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildProject)'
 
-- stage: Deploy Demo site
+- stage: deploy_demo_site
+  displayName: 'Deploy demo site'
   jobs:
     - deployment: 
       strategy:
