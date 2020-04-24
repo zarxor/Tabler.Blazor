@@ -32,7 +32,7 @@ stages:
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'drop'
+          ArtifactName: 'demo_drop'
           publishLocation: 'Container'
 
 - stage: deploy_demo_site
@@ -44,10 +44,7 @@ stages:
       strategy:
         runOnce:
           preDeploy:
-            steps:       
-              - download: current
-                artifact: drop  
-
+            steps:
               - task: Npm@1
                 displayName: 'Install netlify client'
                 inputs:
@@ -56,6 +53,6 @@ stages:
 
           deploy:
             steps:
-              - script: npx netlify deploy --dir $(System.ArtifactsDirectory)/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
+              - script: npx netlify deploy --dir $(Build.ArtifactStagingDirectory)/demo_drop/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
                 displayName: 'netlify deploy'
 
