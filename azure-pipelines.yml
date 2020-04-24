@@ -13,7 +13,6 @@ variables:
   buildConfiguration: 'Release'
   buildProject: 'src/Tabler/Tabler.csproj'
   buildDemoProject: 'test/Tabler.Test.Wasm/Tabler.Test.Wasm.csproj'
-  buildDemoProjectOutput: '$(System.ArtifactsDirectory)'
 
 stages:
 - stage: build
@@ -28,20 +27,26 @@ stages:
   - job: publish_tabler
     displayName: 'Publish Tabler for Blazor'
     steps:        
-      - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(System.ArtifactsDirectory)
-        displayName: 'dotnet build $(buildDemoProject)'       
+      - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+        displayName: 'dotnet build $(buildDemoProject)'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
 
 - stage: deploy_demo_site
   displayName: 'Deploy demo site'
   jobs:
     - deployment: demo_deploy
+      displayName: 'Deploy demo site'
       environment: 'Demo'
       strategy:
         runOnce:
           preDeploy:
             steps:       
               - download: current
-                artifact: $(System.ArtifactsDirectory)  
+                artifact: drop  
 
               - task: Npm@1
                 displayName: 'Install netlify client'
@@ -51,6 +56,6 @@ stages:
 
           deploy:
             steps:
-              - script: npx netlify deploy --dir $(buildDemoProjectOutput)/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
+              - script: npx netlify deploy --dir $(System.ArtifactsDirectory)/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
                 displayName: 'netlify deploy'
 
