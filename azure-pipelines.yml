@@ -15,7 +15,9 @@ variables:
   buildDemoProject: 'test/Tabler.Test.Wasm/Tabler.Test.Wasm.csproj'
   buildDemoProjectOutput: 'demo-dist'
 
-jobs:
+stages:
+- stage: Build
+  jobs:
   - job: Tabler
     displayName: 'Build Tabler for Blazor'
     steps:
@@ -26,21 +28,23 @@ jobs:
     - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildProject)'
 
-  - job: DemoSite
-    displayName: 'Build demo site'
-    steps:
-    - task: UseDotNet@2      
-      inputs:
-        version: '3.1.201'
+- stage: Deploy Demo site
+  jobs:
+    - deployment: 
+      strategy:
+        runOnce:
+          preDeploy:
+            steps:
+              - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
+                displayName: 'dotnet build $(buildDemoProject)'                
+              - task: Npm@1
+                displayName: 'Install netlify client'
+                inputs:
+                  command: 'custom'
+                  customCommand: 'install netlify-cli'
 
-    - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(buildDemoProjectOutput)
-      displayName: 'dotnet build $(buildDemoProject)'
+          deploy:
+            steps:
+              - script: npx netlify deploy --dir $(buildDemoProjectOutput)/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
+                displayName: 'netlify deploy'
 
-    - task: Npm@1
-      displayName: 'Install netlify client'
-      inputs:
-        command: 'custom'
-        customCommand: 'install netlify-cli'
-
-    - script: npx netlify deploy --dir $(buildDemoProjectOutput)/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
-      displayName: 'netlify deploy'
