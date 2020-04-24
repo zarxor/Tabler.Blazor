@@ -32,7 +32,8 @@ stages:
 - stage: deploy_demo_site
   displayName: 'Deploy demo site'
   jobs:
-    - deployment: 
+    - deployment: demo_deploy
+      environment: 'Demo'
       strategy:
         runOnce:
           preDeploy:
