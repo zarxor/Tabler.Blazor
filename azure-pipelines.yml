@@ -43,7 +43,7 @@ stages:
       environment: 'Demo'
       strategy:
         runOnce:
-          preDeploy:
+          deploy:
             steps:
               - task: Npm@1
                 displayName: 'Install netlify client'
@@ -51,8 +51,6 @@ stages:
                   command: 'custom'
                   customCommand: 'install netlify-cli'
 
-          deploy:
-            steps:
-              - script: npx netlify deploy --dir $(Build.ArtifactStagingDirectory)/demo_drop/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
+              - script: npx netlify deploy --dir ./demo_drop/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
                 displayName: 'netlify deploy'
 
