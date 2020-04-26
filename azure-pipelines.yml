@@ -14,43 +14,33 @@ variables:
   buildProject: 'src/Tabler/Tabler.csproj'
   buildDemoProject: 'test/Tabler.Test.Wasm/Tabler.Test.Wasm.csproj'
 
-stages:
-- stage: build
-  displayName: 'Build'
-  jobs:
-  - job: build_tabler
-    displayName: 'Build Tabler for Blazor'
-    steps:        
-    - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
-      displayName: 'dotnet build $(buildProject)'
+jobs:
+- job: build_tabler
+  displayName: 'Build Tabler for Blazor'
+  steps:        
+  - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildProject)'
 
-  - job: publish_tabler
-    displayName: 'Publish Tabler for Blazor'
-    steps:        
-      - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-        displayName: 'dotnet build $(buildDemoProject)'
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'demo_drop'
-          publishLocation: 'Container'
+- job: pack_tabler
+  displayName: 'Build Tabler for Blazor'
+  steps:        
+  - script: dotnet pack $(buildProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/pack
+    displayName: 'dotnet build $(buildProject)'
+              
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/pack'
+      ArtifactName: 'pack_drop'
+      publishLocation: 'Container'
 
-- stage: deploy_demo_site
-  displayName: 'Deploy demo site'
-  jobs:
-    - deployment: demo_deploy
-      displayName: 'Deploy demo site'
-      environment: 'Demo'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - task: Npm@1
-                displayName: 'Install netlify client'
-                inputs:
-                  command: 'custom'
-                  customCommand: 'install netlify-cli'
-
-              - script: npx netlify deploy --dir ../demo_drop/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
-                displayName: 'netlify deploy'
-
+- job: publish_tabler
+  displayName: 'Publish Wasm Demo Site'
+  steps:        
+    - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish
+      displayName: 'dotnet build $(buildDemoProject)'
+              
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
+        ArtifactName: 'demo_drop'
+        publishLocation: 'Container'
