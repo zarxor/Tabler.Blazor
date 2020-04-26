@@ -51,6 +51,6 @@ stages:
                   command: 'custom'
                   customCommand: 'install netlify-cli'
 
-              - script: npx netlify deploy --dir ./demo_drop/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
+              - script: npx netlify deploy --dir ../demo_drop/wwwroot --site $(netlify_site_id) --auth $(netlify_api_key)
                 displayName: 'netlify deploy'
 
