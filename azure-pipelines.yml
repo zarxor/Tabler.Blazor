@@ -21,26 +21,5 @@ jobs:
   - script: dotnet build $(buildProject) --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildProject)'
 
-- job: pack_tabler
-  displayName: 'Build Tabler for Blazor'
-  steps:        
-  - script: dotnet pack $(buildProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/pack
-    displayName: 'dotnet build $(buildProject)'
-              
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/pack'
-      ArtifactName: 'pack_drop'
-      publishLocation: 'Container'
-
-- job: publish_tabler
-  displayName: 'Publish Wasm Demo Site'
-  steps:        
-    - script: dotnet publish $(buildDemoProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish
-      displayName: 'dotnet build $(buildDemoProject)'
-              
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
-        ArtifactName: 'demo_drop'
-        publishLocation: 'Container'
+  - script: dotnet build $(buildDemoProject) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish
+    displayName: 'dotnet build $(buildDemoProject)'
